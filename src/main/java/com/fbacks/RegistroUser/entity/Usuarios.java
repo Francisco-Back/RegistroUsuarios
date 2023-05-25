@@ -1,4 +1,4 @@
-package com.fbacks.RegistroUser.Entity;
+package com.fbacks.RegistroUser.entity;
 
 import lombok.Data;
 
