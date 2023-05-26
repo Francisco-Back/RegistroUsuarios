@@ -18,11 +18,12 @@ public class UserController {
 	@PostMapping
 	public ResponseEntity<?> CreateUser(@RequestBody UserInDTO userIn){
 		
-		return ResponseEntity<?>userIn;
-				
-				//ResponseEntity<>();
+		return new ResponseEntity<>(userservice.createUser(userlnDTO),HttpStatus.CREATED);
 		
 	}
+	
+	
+	
 	
 	
 	
