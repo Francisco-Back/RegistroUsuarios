@@ -2,6 +2,7 @@ package com.fbacks.RegistroUser.Services;
 
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
 
 import com.fbacks.RegistroUser.Entity.UserEntity;
 import com.fbacks.RegistroUser.Mapper.UserInDTOoUseEntity;
@@ -41,6 +42,10 @@ public class UserServices implements ImUserService {
 		this.repository.deleteById(Id);
 	}
 
+	@Override
+public UserEntity Search(Long Id) {
+	return this.repository.findById(Id).get();
+}
 	
 
 }

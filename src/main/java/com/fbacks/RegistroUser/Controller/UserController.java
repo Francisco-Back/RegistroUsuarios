@@ -35,8 +35,14 @@ public class UserController {
 	
 	@GetMapping
 	public ResponseEntity<?> getlistUser() {
-		System.out.println("datos ");
+		System.out.println("datos, ");
 		return ResponseEntity.ok(userservices.SetUser());
+	}
+	
+	
+	@GetMapping("/search/{id}")
+	public ResponseEntity<?> SearchUser(@PathVariable("id") long id) throws Exception{
+		return ResponseEntity.status(HttpStatus.OK).body(userservices.Search(id));
 	}
 	
 

@@ -1,33 +1,31 @@
 
-$(document).ready(function() {
-	cargarUser();
-  $('#UserTable').DataTable();
-});
 
 
-async function  cargarUser(){
+
+async function  RegistrarUser(){
+  let datos= {};
+  datos.nombre= document.getElementById('exampleFirstName').value;
+  datos.apellido = document.getElementById('exampleLastName').value;
+  datos.email = document.getElementById('exampleInputEmail').value;
+  datos.password = document.getElementById('exampleInputPassword').value;
+  
+  let repetirpassword = document.getElementById('exampleRepeatPassword').value;
+  if(repetirpassword != datos.password){
+alert('Contraseña diferente');
+return;
+  }
+  
 const rawResponse =  await fetch('api/Usuarios',{
-	method: 'GET',
+	method: 'POST',
   headers:{
     'Accept':'application/json',
     'Content-Type': 'application/json'
-  },
+  },body: JSON.stringify(datos)
 	
 	
 });
-const usuarios = await rawResponse.json();
-console.log(usuarios);
+console.log(rawResponse);
+alert('Usuairo Creado Correctamente');
+location.href = 'login.html';
 
-
-
-let listadoHtml ='';
-for (let usuario of usuarios){
-  let BotonEliminar= '<a href="#" onclick="EliminarUser('+ usuario.id+')" class="btn btn-danger btn-circle btn-sm">  <i class="fas fa-trash"></i></a><a href="#" onclick class="btn btn-info btn-circle btn-sm"><i class="fas fa-info-circle"></i></a>'
-let usuarioHtml  = ' <tr><td>01</td><td>'+usuario.nombre+' '+ usuario.apellido+'</td><td>'+usuario.email+
-'</td> <td>'+usuario.telefono+
-'</td><td>'+BotonEliminar+'</td></tr>' 
-
-listadoHtml += usuarioHtml;
-}
-document.querySelector('#UserTable tbody').outerHTML = listadoHtml;
 }
