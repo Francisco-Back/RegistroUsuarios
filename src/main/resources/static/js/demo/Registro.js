@@ -1,4 +1,4 @@
-// Call the dataTables jQuery plugin
+
 $(document).ready(function() {
 	cargarUser();
   $('#UserTable').DataTable();
@@ -30,24 +30,4 @@ let usuarioHtml  = ' <tr><td>01</td><td>'+usuario.nombre+' '+ usuario.apellido+'
 listadoHtml += usuarioHtml;
 }
 document.querySelector('#UserTable tbody').outerHTML = listadoHtml;
-}
-
-async function EliminarUser(id){
-if(confirm('¿Desea eliminar el Usuario')){
-  const rawResponse =  await fetch('api/Usuarios/Delete/'+ id,{
-    method: 'DELETE',
-    headers:{
-      'Accept':'application/json',
-      'Content-Type': 'application/json'
-    },
-    
-    
-  });
-  console.log(rawResponse);
-  location.reload();
-}else{
-return;
-}
-
-
 }
