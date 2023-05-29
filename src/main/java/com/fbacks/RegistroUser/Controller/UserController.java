@@ -1,12 +1,14 @@
 package com.fbacks.RegistroUser.Controller;
 
 
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.*;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import com.fbacks.RegistroUser.services.dto.UserInDTO;
+import org.springframework.web.bind.annotation.*;
+import com.fbacks.RegistroUser.Services.UserServices;
+import com.fbacks.RegistroUser.Services.DTO.UserlnDTO;
+
 
 
 
@@ -15,16 +17,35 @@ import com.fbacks.RegistroUser.services.dto.UserInDTO;
 public class UserController {
 
 	
-	@PostMapping
-	public ResponseEntity<?> CreateUser(@RequestBody UserInDTO userIn){
-		
-		return new ResponseEntity<>(userservice.createUser(userlnDTO),HttpStatus.CREATED);
-		
+	@Autowired
+	private final UserServices userservices;
+	
+	
+	
+	public UserController(UserServices userservices) {
+		this.userservices = userservices;
 	}
 	
+
 	
+	@PostMapping
+	public ResponseEntity<?> createUser(@RequestBody  UserlnDTO userlnDTO  ) {
+		return new ResponseEntity<>(userservices.createUser(userlnDTO),HttpStatus.CREATED);
+	}
 	
+	@GetMapping
+	public ResponseEntity<?> getlistUser() {
+		System.out.println("datos ");
+		return ResponseEntity.ok(userservices.SetUser());
+	}
 	
-	
+
+	@DeleteMapping("/Delete/{id}")
+	public ResponseEntity<?> EliminarLiga(@PathVariable Long id){
+		
+		userservices.DeleteUser(id);
+		
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
 	
 }
