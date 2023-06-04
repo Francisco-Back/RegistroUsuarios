@@ -15,11 +15,12 @@ async function  LoginUser(){
   });
   const respuesta = await rawResponse.text();
 
-  if(respuesta =='OK'){
+  if(respuesta == 'OK'){
 console.log("Si ingresa");
-    window.location.href= 'Usertables.html'
+      window.location.href= 'Usertables.html'
   }else{
     alert("las credencaciales son incorrectas")
+ 
   }
   
   }
