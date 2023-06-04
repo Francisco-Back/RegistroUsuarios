@@ -37,9 +37,12 @@ public class UserController {
 	@GetMapping
 	public ResponseEntity<?> getlistUser(@RequestHeader(value="Authorization") String token) {
 		System.out.println("datos, ");
-		 if (!validarToken(token)) { return null; }
+		 if (!validarToken(token)) {new ResponseEntity<>(HttpStatus.UNAUTHORIZED); }
 		return ResponseEntity.ok(userservices.SetUser());
 	}
+	
+	
+	
 	   private boolean validarToken(String token) {
 	        String usuarioId = jwtUtil.getKey(token);
 	        return usuarioId != null;
@@ -47,14 +50,16 @@ public class UserController {
 	
 	
 	@GetMapping("/search/{id}")
-	public ResponseEntity<?> SearchUser(@PathVariable("id") long id) throws Exception{
+	public ResponseEntity<?> SearchUser(@RequestHeader(value="Authorization") String token
+			,@PathVariable("id") long id) throws Exception{
+		 if (!validarToken(token)) {new ResponseEntity<>(HttpStatus.UNAUTHORIZED); }
 		return ResponseEntity.status(HttpStatus.OK).body(userservices.Search(id));
 	}
 	
 
 	@DeleteMapping("/Delete/{id}")
-	public ResponseEntity<?> EliminarLiga(@PathVariable Long id){
-		
+	public ResponseEntity<?> EliminarLiga(@RequestHeader(value="Authorization") String token,@PathVariable Long id){
+		 if (!validarToken(token)) { new ResponseEntity<>(HttpStatus.UNAUTHORIZED); }
 		userservices.DeleteUser(id);
 		
 		return new ResponseEntity<>(HttpStatus.OK);

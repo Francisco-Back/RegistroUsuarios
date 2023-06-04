@@ -2,16 +2,28 @@
 $(document).ready(function() {
 	cargarUser();
   $('#UserTable').DataTable();
+  emailUser();
 });
+
+function emailUser(){
+	document.getElementById('User-Email').outerHTML =localStorage.email;
+}
+
+function getHeaders(){
+	return{
+		  'Accept':'application/json',
+      'Content-Type': 'application/json',
+      'Authorization':localStorage.token
+	};
+}
 
 
 async function  cargarUser(){
 const rawResponse =  await fetch('api/Usuarios',{
 	method: 'GET',
-  headers:{
-    'Accept':'application/json',
-    'Content-Type': 'application/json'
-  },
+  headers:
+    getHeaders()
+  
 	
 	
 });
@@ -35,10 +47,7 @@ async function EliminarUser(id){
 if(confirm('¿Desea eliminar el Usuario')){
   const rawResponse =  await fetch('api/Usuarios/Delete/'+ id,{
     method: 'DELETE',
-    headers:{
-      'Accept':'application/json',
-      'Content-Type': 'application/json'
-    },
+    headers:getHeaders()
     
     
   });

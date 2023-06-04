@@ -44,12 +44,11 @@ public class AuthController {
       if (usuarioLogueado != null) {
       	System.out.println("Usuario creado");
           String tokenJwt = jwtUtil.create(String.valueOf(usuarioLogueado.getId()), usuarioLogueado.getEmail());
-          System.out.println("retornatokien");
+          System.out.println("retornatokien"+ tokenJwt);
           return ResponseEntity.ok(tokenJwt);
           
       }
-      System.out.println("faill ffdf");
-      return  new ResponseEntity<>(HttpStatus.FOUND);
+      return  new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 	  
 	}
 

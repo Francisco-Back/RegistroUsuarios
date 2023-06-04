@@ -15,12 +15,17 @@ async function  LoginUser(){
   });
   const respuesta = await rawResponse.text();
 
-  if(respuesta == 'OK'){
-console.log("Si ingresa");
+  if(respuesta != 'UNAUTHORIZED'){
+	  localStorage.token = respuesta;
+localStorage.email=datos.email;
+ console.log("Si ingresa");
       window.location.href= 'Usertables.html'
+      
+
   }else{
     alert("las credencaciales son incorrectas")
- 
+
+
   }
   
   }

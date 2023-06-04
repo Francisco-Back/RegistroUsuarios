@@ -72,13 +72,15 @@ public UserEntity Search(Long Id) {
 		   System.out.println("ingresa a credenciales");
 		   
 		   UserEntity UserE= mapper.map(usuario);
-		   System.out.println("cerdencial"+ UserE.getEmail());
-		   System.out.println("cerdencial"+ UserE.getPassword());
+		   System.out.println("cerdencial "+ UserE.getEmail());
+		   System.out.println("cerdencial "+ UserE.getPassword());
 	        String query = "FROM UserEntity WHERE email = :email";
 	        List<UserEntity> lista = entityManager.createQuery(query)
 	                .setParameter("email", UserE.getEmail())
 	                .getResultList();
 
+	        
+	         System.out.println(lista.toString());
 	        if (lista.isEmpty()) {
 	        	System.out.println("Retorna null lista vacia");
 	            return null;
