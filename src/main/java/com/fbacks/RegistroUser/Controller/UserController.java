@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import com.fbacks.RegistroUser.Security.Utils.JWTUtil;
 import com.fbacks.RegistroUser.Services.UserServices;
 import com.fbacks.RegistroUser.Services.DTO.UserlnDTO;
 
@@ -18,13 +20,12 @@ public class UserController {
 
 	
 	@Autowired
-	private final UserServices userservices;
+	private UserServices userservices;
+	 @Autowired
+	    private JWTUtil jwtUtil;
+
 	
-	
-	
-	public UserController(UserServices userservices) {
-		this.userservices = userservices;
-	}
+
 	
 
 	
@@ -34,10 +35,15 @@ public class UserController {
 	}
 	
 	@GetMapping
-	public ResponseEntity<?> getlistUser() {
+	public ResponseEntity<?> getlistUser(@RequestHeader(value="Authorization") String token) {
 		System.out.println("datos, ");
+		 if (!validarToken(token)) { return null; }
 		return ResponseEntity.ok(userservices.SetUser());
 	}
+	   private boolean validarToken(String token) {
+	        String usuarioId = jwtUtil.getKey(token);
+	        return usuarioId != null;
+	    }
 	
 	
 	@GetMapping("/search/{id}")

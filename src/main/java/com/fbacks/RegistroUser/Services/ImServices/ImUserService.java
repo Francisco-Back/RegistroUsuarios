@@ -3,8 +3,12 @@ package com.fbacks.RegistroUser.Services.ImServices;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.stereotype.Component;
+
 import com.fbacks.RegistroUser.Entity.UserEntity;
 import com.fbacks.RegistroUser.Services.DTO.UserlnDTO;
+
+
 
 public interface ImUserService {
 
@@ -15,6 +19,9 @@ public interface ImUserService {
 	void DeleteUser(Long Id);
 
 	UserEntity Search(Long id) throws Exception;
+
+
+	UserEntity obtenerUsuarioPorCredenciales(UserlnDTO usuario);
 
 
 }
