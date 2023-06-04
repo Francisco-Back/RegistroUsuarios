@@ -5,7 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.fbacks.RegistroUser.Security.Services.LoginServices;
-import com.fbacks.RegistroUser.Security.Services.DTO.LoginInDTO;
+
 
 
 
@@ -15,7 +15,6 @@ import com.fbacks.RegistroUser.Security.Services.DTO.LoginInDTO;
 @RequestMapping("api/LoginUser")
 public class LoginController {
 	
-
 	@Autowired
 	private final LoginServices loginServices;
 	
@@ -38,10 +37,17 @@ public class LoginController {
 	
 	}
 	
-	@PostMapping
-	public ResponseEntity<?> LoginUser(@RequestBody LoginInDTO loginInDTO){
-		return new ResponseEntity<>(loginServices.LoginUser(loginInDTO),HttpStatus.OK);
+	@GetMapping("/{email}/{pass}")
+	public ResponseEntity<?> LoginUser(@PathVariable("email") String email, @PathVariable("pass") String pass){
 		
+		try {
+		
+			return  ResponseEntity.status(HttpStatus.OK).body(loginServices.LoginUser(email, pass));
+		
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		   return new ResponseEntity<>(HttpStatus.CONFLICT);
 	}
 
 	
